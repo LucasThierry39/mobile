@@ -8,16 +8,31 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import { useState } from "react";
 
 // -- CODIGO -- \\
 export default function App() {
+  const [inputValue, setInputValue] = useState("");
+  const [resultValue, setResultValue] = useState("");
+
+  const convertToInch = () => {
+    const inches = parseFloat(inputValue) / 2.54;
+    setResultValue(`${inches.toFixed(4)} Polegadas`);
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Conversor de medidas</Text>
-      <TextInput style={styles.input} />
-      <TouchableOpacity style={styles.button}>
+      <TextInput
+        style={styles.input}
+        onChangeText={setInputValue}
+        value={inputValue}
+        placeholder="Digite em cm"
+        keyboardType="numeric"
+      />
+      <TouchableOpacity style={styles.button} onPress={convertToInch}>
         <Text style={styles.buttonLabel}>Converter</Text>
       </TouchableOpacity>
+      <Text style={styles.result}>{resultValue}</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -32,17 +47,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  title:{
+  title: {
     fontSize: 24,
-    color: '#00A4CD',
-    margin: 8
+    color: "#00A4CD",
+    margin: 8,
   },
   input: {
-    height: 40,
+    height: 60,
     width: 180,
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    borderRadius: 8
   },
   button: {
     width: 180,
@@ -54,5 +70,9 @@ const styles = StyleSheet.create({
   buttonLabel: {
     color: "#fff",
     fontSize: 16,
+  },
+  result: {
+    fontSize: 16,
+    margin: 12,
   },
 });
