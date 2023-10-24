@@ -12,25 +12,33 @@ import { useState } from "react";
 
 // -- CODIGO -- \\
 export default function App() {
-  const [inputValue, setInputValue] = useState("");
+  const [alturaValue, setAlturaValue] = useState("");
+  const [calcValue, setCalcValue] = useState("");
   const [resultValue, setResultValue] = useState("");
 
   const convertToInch = () => {
-    const inches = parseFloat(inputValue) / 2.54;
-    setResultValue(`${inches.toFixed(4)} Polegadas`);
+    const inches = parseFloat(calcValue) / (parseFloat(alturaValue) * parseFloat(alturaValue)) ;
+    setResultValue(`IMC = ${inches.toFixed(2)} `);
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Conversor de medidas</Text>
+      <Text style={styles.title}>Calculado do IMC</Text>
       <TextInput
         style={styles.input}
-        onChangeText={setInputValue}
-        value={inputValue}
-        placeholder="Digite em cm"
-        keyboardType="numeric"
+        onChangeText={setAlturaValue}
+        value={alturaValue}
+        placeholder="Digite sua altura"
+       
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={setCalcValue}
+        value={calcValue}
+        placeholder="Digite seu peso"
+        
       />
       <TouchableOpacity style={styles.button} onPress={convertToInch}>
-        <Text style={styles.buttonLabel}>Converter</Text>
+        <Text style={styles.buttonLabel}>Calcular</Text>
       </TouchableOpacity>
       <Text style={styles.result}>{resultValue}</Text>
       <StatusBar style="auto" />
